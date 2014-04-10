@@ -11,8 +11,23 @@ class LivreController {
     }
 
     def list(Integer max) {
-        params.max = Math.min(max ?: 5, 100)
+
+
+        if(params.titre == null && params.auteur == null){
+            params.max = Math.min(max ?: 5, 100)
+            [livreInstanceList: Livre.list(params), livreInstanceTotal: Livre.count()]
+        }
+        else{
+            def liste = LivreService.serviceGetLivres(params)
+            [ livreInstanceList:liste, livreInstanceTotal:liste.size()  ]
+        }
+
+        /*
+        def String titreParam = params.titre
+        def List<Livre> listeTemp = Livre.list(params)
+
         [livreInstanceList: Livre.list(params), livreInstanceTotal: Livre.count()]
+        */
     }
 
     def create() {

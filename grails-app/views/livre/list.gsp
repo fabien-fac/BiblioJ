@@ -12,11 +12,23 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+                <!-- <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li> -->
 			</ul>
 		</div>
 		<div id="list-livre" class="content scaffold-list" role="main">
-			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
+			<h1>Liste des livres</h1>
+            <form>
+                Type de document :
+                <select name="type">
+                    <g:each in="${biblioj.TypeDocument.list()}" status="x" var="typeDocument">
+                        <option value=${fieldValue(bean: typeDocument, field: "intitule")}>${fieldValue(bean: typeDocument, field: "intitule")}</option>
+                    </g:each>
+                </select>
+
+                Titre du livre : <input type="text" name="titre">
+                Auteur : <input type="text" name="auteur">
+                <input type="submit" value="Rechercher">
+            </form>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -31,9 +43,7 @@
 						<g:sortableColumn property="typeDocument" title="${message(code: 'livre.typeDocument.label', default: 'Type de document')}" />
 					
 						<g:sortableColumn property="nombreExemplairesDisponibles" title="${message(code: 'livre.nombreExemplairesDisponibles.label', default: 'Exemplaires disponibles')}" />
-					
 
-					
 					</tr>
 				</thead>
 				<tbody>
@@ -49,6 +59,7 @@
                                     ${fieldValue(bean: auteur, field: "nom")}
                                     ${fieldValue(bean: auteur, field: "prenom")}
                                 </g:link>
+                                &nbsp;
                             </g:each>
 
                         </td>
