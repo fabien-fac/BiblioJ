@@ -6,6 +6,8 @@ class Livre {
     def int nombreExemplaires
     def int nombreExemplairesDisponibles
 
+    def TypeDocument typeDocument
+
     static hasMany = [
             auteurs:Auteur,
             reservations:Reservation
@@ -17,5 +19,6 @@ class Livre {
     static belongsTo = [Reservation, Auteur]
 
     static constraints = {
+        typeDocument nullable: true
     }
 }

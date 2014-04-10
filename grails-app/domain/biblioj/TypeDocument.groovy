@@ -4,8 +4,7 @@ class TypeDocument {
 
     def String intitule
 
-    def belongsTo = [livre:Livre]
-
     static constraints = {
+        intitule blank: false
     }
 }

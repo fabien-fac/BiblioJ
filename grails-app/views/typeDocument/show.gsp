@@ -32,15 +32,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${typeDocumentInstance?.livre}">
-				<li class="fieldcontain">
-					<span id="livre-label" class="property-label"><g:message code="typeDocument.livre.label" default="Livre" /></span>
-					
-						<span class="property-value" aria-labelledby="livre-label"><g:link controller="livre" action="show" id="${typeDocumentInstance?.livre?.id}">${typeDocumentInstance?.livre?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
-			
 			</ol>
 			<g:form>
 				<fieldset class="buttons">
