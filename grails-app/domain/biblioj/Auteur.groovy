@@ -10,6 +10,8 @@ class Auteur {
     static fetchMode = [oeuvres: 'eager']
 
     static constraints = {
+        nom nullable : false, blank : false
+        prenom nulle : false, blank : false
     }
 
 }

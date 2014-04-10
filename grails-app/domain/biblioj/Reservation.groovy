@@ -10,5 +10,7 @@ class Reservation {
     static fetchMode = [livres: 'eager']
 
     static constraints = {
+        codeReservation unique : true, nullable : false, blank : false
+        dateReservation min : new Date()
     }
 }

@@ -5,6 +5,6 @@ class TypeDocument {
     def String intitule
 
     static constraints = {
-        intitule blank: false
+        intitule nullable : false, blank: false
     }
 }
