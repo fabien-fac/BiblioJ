@@ -7,11 +7,19 @@ class LivreService {
         String titreLivre = params.titre
         String auteurLivre = params.auteur
         String typeDoc = params.type
+        int max = params.int('max') ?: 0
 
         if(titreLivre != null && (titreLivre.length()>0 || auteurLivre.length()>0 || !typeDoc.equals(" "))){
-            def liste = getLivresAvecCriteres(params).unique()
-
-            [ livreInstanceList:liste, livreInstanceTotal:liste.size()  ]
+            def listeTotal = getLivresAvecCriteres(params).unique()
+            def listeRes = []
+            int min = Math.min(listeTotal.size()-1, max-1)
+            if(min < 0){
+                listeRes = listeTotal
+            }
+            else{
+                listeTotal[0..min].each { listeRes << it}
+            }
+            [ livreInstanceList:listeRes, livreInstanceTotal:listeTotal.size()  ]
         }
         else{
             [livreInstanceList: Livre.list(params), livreInstanceTotal: Livre.count()]
