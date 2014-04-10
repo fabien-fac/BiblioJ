@@ -20,6 +20,7 @@
             <form>
                 Type de document :
                 <select name="type">
+                <option value=""> </option>
                     <g:each in="${biblioj.TypeDocument.list()}" status="x" var="typeDocument">
                         <option value=${fieldValue(bean: typeDocument, field: "intitule")}>${fieldValue(bean: typeDocument, field: "intitule")}</option>
                     </g:each>
@@ -38,7 +39,7 @@
 
                         <g:sortableColumn property="titre" title="${message(code: 'livre.titre.label', default: 'Titre')}" />
 
-                        <g:sortableColumn property="auteurs" title="${message(code: 'livre.auteurs.label', default: 'Auteur(s)')}" />
+                        <g:sortableColumn property="auteurs.nom" title="${message(code: 'livre.auteurs.label', default: 'Auteur(s)')}" />
 					
 						<g:sortableColumn property="typeDocument" title="${message(code: 'livre.typeDocument.label', default: 'Type de document')}" />
 					
