@@ -2,7 +2,6 @@ package biblioj
 
 
 import grails.test.mixin.*
-import org.junit.*
 
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions
@@ -10,7 +9,18 @@ import org.junit.*
 @TestFor(Auteur)
 class AuteurTests {
 
-    void testSomething() {
-        fail "Implement me"
+    void testAuteurContraintes() {
+        def auteurInvalide1 = new Auteur(
+                nom: "")
+        assert !auteurInvalide1.validate()
+
+        def auteurInvalide2 = new Auteur(
+                prenom: "")
+        assert !auteurInvalide2.validate()
+
+        def auteurValide = new Auteur(
+                nom: "King",
+                prenom: "Stephen")
+        assert auteurValide.validate()
     }
 }

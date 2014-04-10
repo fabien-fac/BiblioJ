@@ -20,5 +20,7 @@ class Livre {
 
     static constraints = {
         typeDocument nullable: true
+        nombreExemplaires min : 0
+        nombreExemplairesDisponibles min : 0
     }
 }
