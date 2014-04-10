@@ -21,6 +21,7 @@ class BootStrap {
 
         def Livre livre1 = new Livre(titre: "Rien ne s'oppose à la nuit", nombreExemplaires: 10, nombreExemplairesDisponibles: 5)
         livre1.addToAuteurs(vigan)
+        livre1.addToAuteurs(collins)
         livre1.typeDocument = nouveaute
 
         def Livre livre2 = new Livre(titre: "Hunger games", nombreExemplaires: 20, nombreExemplairesDisponibles: 3)

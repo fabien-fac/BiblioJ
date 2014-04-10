@@ -11,4 +11,5 @@ class Auteur {
 
     static constraints = {
     }
+
 }
