@@ -11,6 +11,9 @@ class Livre {
             reservations:Reservation
     ]
 
+    static fetchMode = [auteurs: 'eager',
+                        reservations: 'eager']
+
     static belongsTo = [Reservation, Auteur]
 
     static constraints = {

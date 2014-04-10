@@ -7,6 +7,8 @@ class Auteur {
 
     static hasMany = [oeuvres:Livre]
 
+    static fetchMode = [oeuvres: 'eager']
+
     static constraints = {
     }
 }
