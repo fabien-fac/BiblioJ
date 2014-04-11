@@ -12,11 +12,11 @@ class ReservationTests {
 
     void testReservationContraintes() {
         def reservationInvalide1 = new Reservation(codeReservation: "code1",
-        dateReservation: new Date()-1)
+        dateReservation: new Date())
         assert !reservationInvalide1.validate()
 
         def reservationValide = new Reservation(codeReservation: "code2",
-                dateReservation: new Date()+2)
+                dateReservation: new Date().plus(1))
         assert reservationValide.validate()
 
         /* eventuellement tester la contrainte unique avec un mock */
