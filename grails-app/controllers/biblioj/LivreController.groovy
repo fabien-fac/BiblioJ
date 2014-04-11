@@ -14,11 +14,11 @@ class LivreController {
 
         params.max = Math.min(max ?: 5, 100)
 
-        Reservation reservation = session.getAttribute("reservation")
+        Reservation reservation = Reservation.get(session.getAttribute("idReservation"))
         if(reservation == null){
             ReservationService reservationService = new ReservationService()
             reservation = reservationService.getNewReservation()
-            session.setAttribute("reservation", reservation)
+            session.setAttribute("idReservation", reservation.id)
         }
 
         LivreService livreService = new LivreService()
