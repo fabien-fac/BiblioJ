@@ -11,11 +11,11 @@ h1, h2, h3, h4, h5, h6 {
 /* BASE LAYOUT */
 
 html {
-	background-color: #ddd;
-	background-image: -moz-linear-gradient(center top, #aaa, #ddd);
-	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #aaa), color-stop(1, #ddd));
+	background-color: #F8F8F8;
+	background-image: -moz-linear-gradient(center top, #D2CFCF, #F8F8F8);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #D2CFCF), color-stop(1, #F8F8F8));
 	background-image: linear-gradient(top, #aaa, #ddd);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#aaaaaa', EndColorStr = '#dddddd');
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#D2CFCF', EndColorStr = '#F8F8F8');
 	background-repeat: no-repeat;
 	height: 100%;
 	/* change the box model to exclude the padding from the calculation of 100% height (IE8+) */
@@ -48,7 +48,7 @@ body {
 }
 
 #grailsLogo {
-	background-color: #abbf78;
+	background-color: #b1cba3;
 }
 
 /* replace with .no-boxshadow body if you have modernizr available */
@@ -108,7 +108,7 @@ img {
 }
 
 .footer {
-	background: #abbf78;
+	background: #b1cba3;
 	color: #000;
 	clear: both;
 	font-size: 0.8em;

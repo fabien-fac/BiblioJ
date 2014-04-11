@@ -18,7 +18,7 @@
 		<r:layoutResources />
 	</head>
 	<body>
-		<div id="grailsLogo" role="banner"><a href="http://grails.org"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails"/></a></div>
+		<div id="grailsLogo" role="banner"><a href="/BiblioJ/"><img src="${resource(dir: 'images', file: 'logo.png')}" alt="Grails"/></a></div>
 		<g:layoutBody/>
         <br />
         <div class="panier" role="contentinfo">
