@@ -23,4 +23,10 @@ class Livre {
         nombreExemplaires min : 0
         nombreExemplairesDisponibles min : 0
     }
+
+    def void retirerUnExemplaireDisponible(){
+        if(nombreExemplairesDisponibles > 0){
+            nombreExemplairesDisponibles --;
+        }
+    }
 }

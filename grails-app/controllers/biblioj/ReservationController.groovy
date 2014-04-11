@@ -104,7 +104,8 @@ class ReservationController {
 
         def reservationInstance = Reservation.get(idReservation)
         def livreInstance = Livre.get(idLivre)
-
+        livreInstance.retirerUnExemplaireDisponible()
+        livreInstance.save()
         reservationInstance.addToLivres(livreInstance).save()
         redirect(uri: request.getHeader('referer') )
     }

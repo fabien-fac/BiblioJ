@@ -21,4 +21,29 @@ class ReservationTests {
 
         /* eventuellement tester la contrainte unique avec un mock */
     }
+
+    void testReservationContainsIdLivre(){
+        /*
+        def reservation = new Reservation(codeReservation: "code1",
+                dateReservation: new Date())
+        long id = "1".toLong();
+
+        def livre = new Livre(
+                nombreExemplaires: 4,
+                nombreExemplairesDisponibles: 4)
+        livre.setId(id)
+
+        reservation.livres.add(livre)
+
+        assertFalse(reservation.isContainsLivre(id))
+        */
+    }
+
+    void testReservationNotContainsIdLivre(){
+        def reservation = new Reservation(codeReservation: "code1",
+                dateReservation: new Date())
+        long id = "1".toLong();
+
+        assertFalse(reservation.isContainsLivre(id))
+    }
 }

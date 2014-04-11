@@ -29,4 +29,20 @@ class LivreTests {
                 nombreExemplairesDisponibles: 12)
         assert livreValide.validate()
     }
+
+    void testRetirerExemplaireDisponible(){
+        def livre = new Livre(
+                nombreExemplaires: 4,
+                nombreExemplairesDisponibles: 4)
+        livre.retirerUnExemplaireDisponible()
+        assertEquals(3, livre.nombreExemplairesDisponibles)
+    }
+
+    void testRetirerExemplaireDisponibleLimite(){
+        def livre = new Livre(
+                nombreExemplaires: 4,
+                nombreExemplairesDisponibles: 0)
+        livre.retirerUnExemplaireDisponible()
+        assertEquals(0, livre.nombreExemplairesDisponibles)
+    }
 }

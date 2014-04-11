@@ -5,7 +5,9 @@ class Reservation {
     def String codeReservation
     def Date dateReservation
 
+    Set livres = new HashSet()
     static hasMany = [livres:Livre]
+
 
     static fetchMode = [livres: 'eager']
 
