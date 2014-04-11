@@ -92,4 +92,8 @@ class BootStrap {
     }
     def destroy = {
     }
+
+    def run_tests = {
+
+    }
 }
