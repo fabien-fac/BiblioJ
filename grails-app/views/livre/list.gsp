@@ -15,21 +15,30 @@
                 <!-- <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li> -->
 			</ul>
 		</div>
+        <h1>Code reservation : ${reservationInstance.codeReservation}</h1>
+
 		<div id="list-livre" class="content scaffold-list" role="main">
 			<h1>Liste des livres</h1>
+
             <form>
                 Type de document :
                 <select name="type">
                 <option value=""> </option>
                     <g:each in="${biblioj.TypeDocument.list()}" status="x" var="typeDocument">
-                        <option value=${fieldValue(bean: typeDocument, field: "intitule")}>${fieldValue(bean: typeDocument, field: "intitule")}</option>
+                        <g:if test="${params.type == typeDocument.intitule}">
+                            <option selected value="${typeDocument.intitule}">${typeDocument.intitule}</option>
+                        </g:if>
+                        <g:else>
+                            <option value="${typeDocument.intitule}">${typeDocument.intitule}</option>
+                        </g:else>
                     </g:each>
                 </select>
 
-                Titre du livre : <input type="text" name="titre">
-                Auteur : <input type="text" name="auteur">
+                Titre du livre : <input type="text" name="titre" value="${params.titre}">
+                Auteur : <input type="text" name="auteur" value="${params.auteur}">
                 <input type="submit" value="Rechercher">
             </form>
+
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -45,6 +54,7 @@
 					
 						<g:sortableColumn property="nombreExemplairesDisponibles" title="${message(code: 'livre.nombreExemplairesDisponibles.label', default: 'Exemplaires disponibles')}" />
 
+                       <th> </th>
 					</tr>
 				</thead>
 				<tbody>
@@ -69,12 +79,18 @@
 					
 						<td>${fieldValue(bean: livreInstance, field: "nombreExemplairesDisponibles")}</td>
 
+                        <td>
+                            <g:if test="${livreInstance.nombreExemplairesDisponibles > 0}">
+                                <g:img dir="images" file="panier.png"></g:img>
+                            </g:if>
+                        </td>
+
 					</tr>
 				</g:each>
 				</tbody>
 			</table>
 			<div class="pagination">
-				<g:paginate total="${livreInstanceTotal}" />
+				<g:paginate total="${livreInstanceTotal}" params="${params}"/>
 			</div>
 		</div>
 	</body>

@@ -1,8 +1,10 @@
 package biblioj
 
+import org.hibernate.Criteria
+
 class LivreService {
 
-    def serviceGetLivres(Map params) {
+    def serviceGetLivres(Map params, Reservation reservation) {
 
         String titreLivre = params.titre
         String auteurLivre = params.auteur
@@ -10,7 +12,7 @@ class LivreService {
         int max = params.int('max') ?: 0
 
         if(titreLivre != null && (titreLivre.length()>0 || auteurLivre.length()>0 || !typeDoc.equals(" "))){
-            def listeTotal = getLivresAvecCriteres(params).unique()
+            def listeTotal = getLivresAvecCriteres(params)
             def listeRes = []
             int min = Math.min(listeTotal.size()-1, max-1)
             if(min < 0){
@@ -19,10 +21,10 @@ class LivreService {
             else{
                 listeTotal[0..min].each { listeRes << it}
             }
-            [ livreInstanceList:listeRes, livreInstanceTotal:listeTotal.size()  ]
+            [ livreInstanceList:listeTotal, livreInstanceTotal:listeTotal.size(), reservationInstance:reservation  ]
         }
         else{
-            [livreInstanceList: Livre.list(params), livreInstanceTotal: Livre.count()]
+            [livreInstanceList: Livre.list(params), livreInstanceTotal: Livre.count(), reservationInstance:reservation ]
         }
     }
 
@@ -30,11 +32,11 @@ class LivreService {
         String titreLivre = params.titre
         String typeDoc = params.type
         String auteurLivre = params.auteur
-        int offset = params.int('offset') ?: 0
+        int offsetP = params.int('offset') ?: 0
         int maxRes = params.int('max')
 
         def c = Livre.createCriteria()
-        def results = c{
+        def results = c.listDistinct (){
             createAlias ('typeDocument', 'td')
             and{
                 ilike("td.intitule", '%' + typeDoc + '%')
@@ -46,9 +48,21 @@ class LivreService {
                     }
                 }
             }
-            firstResult offset
+            //maxResults maxRes
+            firstResult offsetP
         }
 
         return results
+    }
+
+    def getLivresAvecCriteresHQL(Map params){
+
+        String titreLivre = "%"+params.titre+"%"
+        String typeDoc = params.type
+        String auteurLivre = "%"+params.auteur+"%"
+        int offset = params.int('offset') ?: 0
+        int maxRes = params.int('max')
+
+        //Livre.findAll("from Livre as l where l.titre like :titre and l.auteurs.nom", [max: maxRes, offset: offset, titre: titreLivre])
     }
 }

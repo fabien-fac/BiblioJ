@@ -47,7 +47,7 @@ class BootStrap {
         livre7.addToAuteurs(murakami)
         livre7.typeDocument = nouveaute
 
-        def Livre livre8 = new Livre(titre: "La révolte", nombreExemplaires: 20, nombreExemplairesDisponibles: 1)
+        def Livre livre8 = new Livre(titre: "La révolte", nombreExemplaires: 20, nombreExemplairesDisponibles: 0)
         livre8.addToAuteurs(collins)
         livre8.typeDocument = livreAdo
 
