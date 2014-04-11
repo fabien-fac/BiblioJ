@@ -16,8 +16,8 @@ class LivreController {
 
         Reservation reservation = session.getAttribute("reservation")
         if(reservation == null){
-            reservation = new Reservation()
-            reservation.codeReservation = "test"
+            ReservationService reservationService = new ReservationService()
+            reservation = reservationService.getNewReservation()
             session.setAttribute("reservation", reservation)
         }
 

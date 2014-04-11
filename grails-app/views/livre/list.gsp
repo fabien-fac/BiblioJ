@@ -15,7 +15,7 @@
                 <!-- <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li> -->
 			</ul>
 		</div>
-        <h1>Code reservation : ${reservationInstance.codeReservation}</h1>
+        <h1>Code reservation : ${reservationInstance.id}</h1>
 
 		<div id="list-livre" class="content scaffold-list" role="main">
 			<h1>Liste des livres</h1>
@@ -81,7 +81,9 @@
 
                         <td>
                             <g:if test="${livreInstance.nombreExemplairesDisponibles > 0}">
-                                <g:img dir="images" file="panier.png"></g:img>
+                                <g:link controller="reservation" action="ajoutLivre" params='[idReservation: "${reservationInstance.id}", idLivre: "${livreInstance.id}"]'>
+                                    <g:img dir="images" file="panier.png"></g:img>
+                                </g:link>
                             </g:if>
                         </td>
 

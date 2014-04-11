@@ -99,4 +99,13 @@ class ReservationController {
             redirect(action: "show", id: id)
         }
     }
+
+    def ajoutLivre(Long idReservation, Long idLivre){
+
+        def reservationInstance = Reservation.get(idReservation)
+        def livreInstance = Livre.get(idLivre)
+
+        reservationInstance.addToLivres(livreInstance)
+        redirect(uri: request.getHeader('referer') )
+    }
 }
