@@ -38,7 +38,7 @@
                 Auteur : <input type="text" name="auteur" value="${params.auteur}">
                 <input type="submit" value="Rechercher">
             </form>
-
+            <br />
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
