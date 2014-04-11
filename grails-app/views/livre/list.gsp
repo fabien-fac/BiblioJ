@@ -80,7 +80,7 @@
 						<td>${fieldValue(bean: livreInstance, field: "nombreExemplairesDisponibles")}</td>
 
                         <td>
-                            <g:if test="${livreInstance.nombreExemplairesDisponibles > 0}">
+                            <g:if test="${livreInstance.nombreExemplairesDisponibles > 0 && !reservationInstance.isContainsLivre(livreInstance.id)}">
                                 <g:link controller="reservation" action="ajoutLivre" params='[idReservation: "${reservationInstance.id}", idLivre: "${livreInstance.id}"]'>
                                     <g:img dir="images" file="panier.png"></g:img>
                                 </g:link>

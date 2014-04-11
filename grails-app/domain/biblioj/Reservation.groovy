@@ -13,4 +13,16 @@ class Reservation {
         codeReservation unique : true, nullable : false, blank : false
         dateReservation min : new Date()
     }
+
+    def boolean isContainsLivre(Long id){
+        boolean res = false
+
+        for(livre in livres){
+            if(livre.id == id){
+                return true
+            }
+        }
+
+        return res
+    }
 }
