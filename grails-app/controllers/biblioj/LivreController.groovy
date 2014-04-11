@@ -14,8 +14,15 @@ class LivreController {
 
         params.max = Math.min(max ?: 5, 100)
 
+        Reservation reservation = session.getAttribute("reservation")
+        if(reservation == null){
+            reservation = new Reservation()
+            reservation.codeReservation = "test"
+            session.setAttribute("reservation", reservation)
+        }
+
         LivreService livreService = new LivreService()
-        livreService.serviceGetLivres(params)
+        livreService.serviceGetLivres(params, reservation)
 
     }
 

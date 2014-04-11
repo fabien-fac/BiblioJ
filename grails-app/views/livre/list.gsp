@@ -15,6 +15,7 @@
                 <!-- <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li> -->
 			</ul>
 		</div>
+        <h1>Code reservation : ${reservationInstance.codeReservation}</h1>
 
 		<div id="list-livre" class="content scaffold-list" role="main">
 			<h1>Liste des livres</h1>
@@ -53,6 +54,7 @@
 					
 						<g:sortableColumn property="nombreExemplairesDisponibles" title="${message(code: 'livre.nombreExemplairesDisponibles.label', default: 'Exemplaires disponibles')}" />
 
+                       <th> </th>
 					</tr>
 				</thead>
 				<tbody>
@@ -76,6 +78,12 @@
 						<td>${fieldValue(bean: livreInstance.typeDocument, field: "intitule")}</td>
 					
 						<td>${fieldValue(bean: livreInstance, field: "nombreExemplairesDisponibles")}</td>
+
+                        <td>
+                            <g:if test="${livreInstance.nombreExemplairesDisponibles > 0}">
+                                <g:img dir="images" file="panier.png"></g:img>
+                            </g:if>
+                        </td>
 
 					</tr>
 				</g:each>
