@@ -111,9 +111,8 @@
 			<div id="controller-list" role="navigation">
 				<h2>Navigation dans BiblioJ :</h2>
 				<ul>
-					<g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-						<li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
-					</g:each>
+                    <li class="controller"><g:link controller="livre" action="index">Liste des livres</g:link></li>
+                    <li class="controller"><g:link controller="auteur" action="index">Liste des auteurs</g:link></li>
 				</ul>
 			</div>
 		</div>

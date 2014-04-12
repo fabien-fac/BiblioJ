@@ -11,7 +11,7 @@ class LivreService {
         String typeDoc = params.type
         int max = params.int('max') ?: 0
 
-        if(titreLivre != null && (titreLivre.length()>0 || auteurLivre.length()>0 || !typeDoc.equals(" "))){
+        if(titreLivre != null && (titreLivre.length()>0 || auteurLivre.length()>0 || typeDoc.length()>1)){
             def listeTotal = getLivresAvecCriteres(params)
             def listeRes = []
             int min = Math.min(listeTotal.size()-1, max-1)
