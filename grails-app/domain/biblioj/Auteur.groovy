@@ -14,4 +14,8 @@ class Auteur {
         prenom nulle : false, blank : false
     }
 
+    String toString(){
+        return nom + " " + prenom
+    }
+
 }
