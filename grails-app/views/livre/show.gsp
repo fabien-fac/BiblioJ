@@ -45,9 +45,7 @@
 				<g:if test="${livreInstance?.nombreExemplaires}">
 				<li class="fieldcontain">
 					<span id="nombreExemplaires-label" class="property-label"><g:message code="livre.nombreExemplaires.label" default="Nombre Exemplaires" /></span>
-					
-						<span class="property-value" aria-labelledby="nombreExemplaires-label"><g:fieldValue bean="${livreInstance}" field="nombreExemplaires"/></span>
-					
+					<span class="property-value" aria-labelledby="nombreExemplaires-label"><g:fieldValue bean="${livreInstance}" field="nombreExemplaires"/></span>
 				</li>
 				</g:if>
 			

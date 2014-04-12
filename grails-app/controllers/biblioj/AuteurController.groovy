@@ -11,8 +11,9 @@ class AuteurController {
     }
 
     def list(Integer max) {
+        Reservation reservation = Reservation.get(session.getAttribute("idReservation"))
         params.max = Math.min(max ?: 10, 100)
-        [auteurInstanceList: Auteur.list(params), auteurInstanceTotal: Auteur.count()]
+        [auteurInstanceList: Auteur.list(params), auteurInstanceTotal: Auteur.count(), reservationInstance:reservation]
     }
 
     def create() {
@@ -32,13 +33,14 @@ class AuteurController {
 
     def show(Long id) {
         def auteurInstance = Auteur.get(id)
+        Reservation reservation = Reservation.get(session.getAttribute("idReservation"))
         if (!auteurInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'auteur.label', default: 'Auteur'), id])
             redirect(action: "list")
             return
         }
 
-        [auteurInstance: auteurInstance]
+        [auteurInstance: auteurInstance,reservationInstance:reservation]
     }
 
     def edit(Long id) {

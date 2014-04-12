@@ -29,4 +29,10 @@ class Livre {
             nombreExemplairesDisponibles --;
         }
     }
+
+    def void ajouterUnExemplaireDisponible(){
+        if (nombreExemplairesDisponibles < nombreExemplaires){
+            nombreExemplairesDisponibles ++;
+        }
+    }
 }

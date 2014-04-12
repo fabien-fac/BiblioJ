@@ -42,6 +42,7 @@ class LivreController {
     }
 
     def show(Long id) {
+        Reservation reservation = Reservation.get(session.getAttribute("idReservation"))
         def livreInstance = Livre.get(id)
         if (!livreInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'livre.label', default: 'Livre'), id])
@@ -49,7 +50,7 @@ class LivreController {
             return
         }
 
-        [livreInstance: livreInstance]
+        [livreInstance: livreInstance, reservationInstance:reservation]
     }
 
     def edit(Long id) {

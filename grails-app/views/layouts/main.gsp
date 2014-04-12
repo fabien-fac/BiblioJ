@@ -1,3 +1,4 @@
+<%@ page import="biblioj.Reservation" %>
 <!DOCTYPE html>
 <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
@@ -68,13 +69,15 @@
         <table>
             <caption><h3> Panier : </h3><br /></caption>
             <th> Titre livre </th>
-            <th> Code reservation </th>
-            <th> date limite reservation </th>
+            <th> Supprimer </th>
             <g:each in="${reservationInstance?.livres?.toList()}" status="l" var="livre">
                 <tr>
-                    <td>  ${livre.titre} </td>
-                    <td> ${reservationInstance?.codeReservation} </td>
-                    <td> ${reservationInstance?.dateReservation}</td>
+                    <td>  ${livre?.titre} </td>
+                    <td>
+                        <g:link controller="reservation" action="supressionLivre" params='[idReservation: "${reservationInstance?.id}", idLivre: "${livre?.id}"]'>
+                        <g:img dir="images" file="supprimer.png"></g:img>
+                        </g:link>
+                    </td>
                 </tr>
             </g:each>
         </table>

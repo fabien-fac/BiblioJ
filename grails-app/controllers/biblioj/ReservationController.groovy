@@ -2,6 +2,8 @@ package biblioj
 
 import org.springframework.dao.DataIntegrityViolationException
 
+import java.sql.DriverManager
+
 class ReservationController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -13,6 +15,12 @@ class ReservationController {
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         [reservationInstanceList: Reservation.list(params), reservationInstanceTotal: Reservation.count()]
+    }
+
+    def main() {
+        Reservation reservation = Reservation.get(session.getAttribute("idReservation"))
+        [reservationInstance:reservation]
+
     }
 
     def create() {
@@ -107,6 +115,16 @@ class ReservationController {
         livreInstance.retirerUnExemplaireDisponible()
         livreInstance.save()
         reservationInstance.addToLivres(livreInstance).save()
+        redirect(uri: request.getHeader('referer') )
+    }
+
+    def supressionLivre(Long idReservation, Long idLivre){
+        def reservationInstance = Reservation.get(idReservation)
+        def livreInstance = Livre.get(idLivre)
+        livreInstance.ajouterUnExemplaireDisponible()
+        livreInstance.save()
+        reservationInstance.supprimerReservation(livreInstance.getId())
+        reservationInstance.save()
         redirect(uri: request.getHeader('referer') )
     }
 }

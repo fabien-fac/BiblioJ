@@ -71,8 +71,10 @@
 
                             <g:each in="${livreInstance.auteurs}" status="j" var="auteur">
                                 <g:link controller="auteur" action="show" id="${auteur.id}">
-                                    ${fieldValue(bean: auteur, field: "nom")}
-                                    ${fieldValue(bean: auteur, field: "prenom")}
+                                   <li>
+                                        ${fieldValue(bean: auteur, field: "nom")}
+                                        ${fieldValue(bean: auteur, field: "prenom")}
+                                   </li>
                                 </g:link>
                                 &nbsp;
                             </g:each>

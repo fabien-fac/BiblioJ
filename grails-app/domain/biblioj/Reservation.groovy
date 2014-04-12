@@ -27,4 +27,18 @@ class Reservation {
 
         return res
     }
+
+    def boolean supprimerReservation(Long id){
+        boolean res = false
+
+        for(livre in livres){
+            if(livre.id == id){
+                livres.remove(livre)
+                return true
+            }
+        }
+
+        return res
+    }
+
 }
