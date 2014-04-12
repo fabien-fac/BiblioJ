@@ -17,33 +17,73 @@
 		<g:layoutHead/>
 		<r:layoutResources />
 	</head>
+<style type="text/css" media="screen">
+#status {
+    background-color: #eee;
+    border: .2em solid #fff;
+    margin-left : -19.7em;
+    margin-top : 5em;
+    padding: 1em;
+    width: 17em;
+    float: left;
+    -moz-box-shadow: 0px 0px 1.25em #ccc;
+    -webkit-box-shadow: 0px 0px 1.25em #ccc;
+    box-shadow: 0px 0px 1.25em #ccc;
+    -moz-border-radius: 0.6em;
+    -webkit-border-radius: 0.6em;
+    border-radius: 0.6em;
+}
+
+.ie6 #status {
+    display: inline; /* float double margin fix http://www.positioniseverything.net/explorer/doubled-margin.html */
+}
+
+#status h1 {
+    text-transform: uppercase;
+    font-size: 1.1em;
+    margin: 0 0 0.3em;
+}
+
+#status caption{
+    text-align: left;
+}
+
+#status table{
+    width: 18.7em;
+    margin-left: -0.9em;
+    border: thin solid #000000;
+}
+
+#status th, #status td{
+    border: thin solid #000000;
+    font-size: 0.8em;
+    color : #000000;
+}
+
+</style>
+    <a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+<div id="status" role="complementary">
+    <div class="panier" role="contentinfo">
+        <br />
+        <table>
+            <caption><h3> Panier : </h3><br /></caption>
+            <th> Titre livre </th>
+            <th> Code reservation </th>
+            <th> date limite reservation </th>
+            <g:each in="${reservationInstance?.livres?.toList()}" status="l" var="livre">
+                <tr>
+                    <td>  ${livre.titre} </td>
+                    <td> ${reservationInstance?.codeReservation} </td>
+                    <td> ${reservationInstance?.dateReservation}</td>
+                </tr>
+            </g:each>
+        </table>
+    </div>
+</div>
 	<body>
 		<div id="grailsLogo" role="banner"><a href="http://grails.org"><img src="${resource(dir: 'images', file: 'grails_logo.png')}" alt="Grails"/></a></div>
 		<g:layoutBody/>
         <br />
-        <div class="panier" role="contentinfo">
-            <br />
-            <table>
-                <caption><h3> Panier : </h3></caption>
-                <th> Titre livre </th>
-                <th> Nombre d'exemplaire reservé </th>
-                <th> Code reservation </th>
-                <th> date limite reservation </th>
-                <!-- g eeach ... -->
-                <tr>
-                    <td> titre du livre </td>
-                    <td> Nombre d'exemplaire reservé </td>
-                    <td> Code resa </td>
-                    <td> date limite resa</td>
-                </tr>
-                <tr>
-                    <td> titre du livre </td>
-                    <td> Nombre d'exemplaire reservé </td>
-                    <td> Code resa </td>
-                    <td> date limite resa</td>
-                </tr>
-            </table>
-        </div>
 	   	<div class="footer" role="contentinfo"></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
 		<g:javascript library="application"/>
