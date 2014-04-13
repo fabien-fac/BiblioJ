@@ -46,7 +46,15 @@ class ReservationController {
             return
         }
 
-        [reservationInstance: reservationInstance]
+        int nbLivreDispo = 0
+
+        for(livre in reservationInstance.getLivres()){
+            if(livre.nombreExemplairesDisponibles > 0){
+                nbLivreDispo++
+            }
+        }
+
+        [reservationInstance: reservationInstance, nbLivreDispo: nbLivreDispo, hideButton: true]
     }
 
     def edit(Long id) {
@@ -112,8 +120,6 @@ class ReservationController {
 
         def reservationInstance = Reservation.get(idReservation)
         def livreInstance = Livre.get(idLivre)
-        livreInstance.retirerUnExemplaireDisponible()
-        livreInstance.save()
         reservationInstance.addToLivres(livreInstance).save()
         redirect(uri: request.getHeader('referer') )
     }
@@ -121,10 +127,27 @@ class ReservationController {
     def supressionLivre(Long idReservation, Long idLivre){
         def reservationInstance = Reservation.get(idReservation)
         def livreInstance = Livre.get(idLivre)
-        livreInstance.ajouterUnExemplaireDisponible()
-        livreInstance.save()
         reservationInstance.supprimerReservation(livreInstance.getId())
         reservationInstance.save()
         redirect(uri: request.getHeader('referer') )
+    }
+
+    def validerPanier(Long idReservation){
+        def reservationInstance = Reservation.get(idReservation)
+        List <Livre> listeASuppr = new ArrayList<Livre>()
+
+        for(livre in reservationInstance.getLivres()){
+            livre.retirerUnExemplaireDisponible()
+            livre.save()
+            listeASuppr.add(livre)
+        }
+
+        for(livreASuppr in listeASuppr){
+            reservationInstance.removeFromLivres(livreASuppr)
+        }
+
+        reservationInstance.save()
+
+        redirect(action: "list", controller: "livre")
     }
 }

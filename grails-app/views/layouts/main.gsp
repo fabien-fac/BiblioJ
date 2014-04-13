@@ -49,40 +49,53 @@
     text-align: left;
 }
 
-#status table{
-    width: 18.7em;
-    margin-left: -0.9em;
-    border: thin solid #000000;
+#status th, #status td{
+    font-size: 0.8em;
 }
 
-#status th, #status td{
-    border: thin solid #000000;
-    font-size: 0.8em;
-    color : #000000;
+#status h2 {
+    color: #48802c;
+    font-weight: normal;
+    font-size: 1.25em;
+    margin: 0 0 0.3em 0;
 }
 
 </style>
     <a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+<g:if test="${reservationInstance != null}">
 <div id="status" role="complementary">
+
     <div class="panier" role="contentinfo">
-        <br />
+        <h2>Panier</h2>
         <table>
-            <caption><h3> Panier : </h3><br /></caption>
-            <th> Titre livre </th>
-            <th> Supprimer </th>
-            <g:each in="${reservationInstance?.livres?.toList()}" status="l" var="livre">
+            <thead>
                 <tr>
-                    <td>  ${livre?.titre} </td>
-                    <td>
-                        <g:link controller="reservation" action="supressionLivre" params='[idReservation: "${reservationInstance?.id}", idLivre: "${livre?.id}"]'>
-                        <g:img dir="images" file="supprimer.png"></g:img>
-                        </g:link>
-                    </td>
+                    <th>Titre livre</th>
+                    <th></th>
                 </tr>
-            </g:each>
+            </thead>
+            <tbody>
+                <g:each in="${reservationInstance?.livres?.toList()}" status="l" var="livre">
+                    <tr class="${(l % 2) == 0 ? 'even' : 'odd'}">
+                        <td>  ${livre?.titre} </td>
+                        <td>
+                            <g:link controller="reservation" action="supressionLivre" params='[idReservation: "${reservationInstance?.id}", idLivre: "${livre?.id}"]'>
+                            <g:img dir="images" file="supprimer.png"></g:img>
+                            </g:link>
+                        </td>
+                    </tr>
+                </g:each>
+            </tbody>
         </table>
+        <g:if test="${reservationInstance.livres.size()>0 && hideButton == null}">
+            <g:form controller="reservation" action="show" id="${reservationInstance.id}">
+                <g:submitButton name="valider" value="valider"/>
+            </g:form>
+        </g:if>
     </div>
+
 </div>
+</g:if>
 	<body>
 		<div id="grailsLogo" role="banner"><a href="/BiblioJ/"><img src="${resource(dir: 'images', file: 'logo.png')}" alt="Grails"/></a></div>
 		<g:layoutBody/>

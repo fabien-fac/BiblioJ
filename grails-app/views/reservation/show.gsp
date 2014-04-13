@@ -11,13 +11,12 @@
 		<a href="#show-reservation" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+                <li><g:link controller="livre" class="home" action="list">Liste des livres</g:link></li>
+                <li><g:link controller="auteur" class="list" action="list">Liste des auteurs</g:link></li>
 			</ul>
 		</div>
 		<div id="show-reservation" class="content scaffold-show" role="main">
-			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
+			<h1>Votre réservation :</h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -44,22 +43,26 @@
 				<g:if test="${reservationInstance?.livres}">
 				<li class="fieldcontain">
 					<span id="livres-label" class="property-label"><g:message code="reservation.livres.label" default="Livres" /></span>
-					
 						<g:each in="${reservationInstance.livres}" var="l">
-						<span class="property-value" aria-labelledby="livres-label"><g:link controller="livre" action="show" id="${l.id}">${l?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
+						    <span class="property-value" aria-labelledby="livres-label">
+                                - <g:link controller="livre" action="show" id="${l.id}">${l?.titre}</g:link>
+                                <g:if test="${l?.nombreExemplairesDisponibles < 1}">
+                                    (indisponible)
+                                </g:if>
+                            </span>
+                        </g:each>
 				</li>
 				</g:if>
 			
 			</ol>
-			<g:form>
-				<fieldset class="buttons">
-					<g:hiddenField name="id" value="${reservationInstance?.id}" />
-					<g:link class="edit" action="edit" id="${reservationInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-				</fieldset>
-			</g:form>
+            <g:if test="${nbLivreDispo > 0}">
+                <g:form controller="reservation" action="validerPanier" params='[idReservation: "${reservationInstance.id}"]'>
+                    <g:submitButton name="confirmer" value="confirmer"/>
+                </g:form>
+            </g:if>
+            <g:form controller="livre" action="list">
+                <g:submitButton name="annuler" value="annuler"/>
+            </g:form>
 		</div>
 	</body>
 </html>

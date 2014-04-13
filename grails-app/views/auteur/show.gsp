@@ -30,6 +30,15 @@
 					
 				</li>
 				</g:if>
+
+                <g:if test="${auteurInstance?.prenom}">
+                    <li class="fieldcontain">
+                        <span id="prenom-label" class="property-label"><g:message code="auteur.prenom.label" default="Prenom" /></span>
+
+                        <span class="property-value" aria-labelledby="prenom-label"><g:fieldValue bean="${auteurInstance}" field="prenom"/></span>
+
+                    </li>
+                </g:if>
 			
 				<g:if test="${auteurInstance?.oeuvres}">
 				<li class="fieldcontain">
@@ -38,15 +47,6 @@
 						<g:each in="${auteurInstance.oeuvres}" var="o">
 						<span class="property-value" aria-labelledby="oeuvres-label"><g:link controller="livre" action="show" id="${o.id}">${o?.titre}</g:link></span>
 						</g:each>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${auteurInstance?.prenom}">
-				<li class="fieldcontain">
-					<span id="prenom-label" class="property-label"><g:message code="auteur.prenom.label" default="Prenom" /></span>
-					
-						<span class="property-value" aria-labelledby="prenom-label"><g:fieldValue bean="${auteurInstance}" field="prenom"/></span>
 					
 				</li>
 				</g:if>
