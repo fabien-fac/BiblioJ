@@ -13,7 +13,7 @@ class Reservation {
 
     static constraints = {
         codeReservation unique : true, nullable : false, blank : false
-        dateReservation min : new Date()
+        dateReservation validator: { val, obj -> obj.dateReservation.getDate().equals(new Date().plus(1).getDate())}
     }
 
     def boolean isContainsLivre(Long id){

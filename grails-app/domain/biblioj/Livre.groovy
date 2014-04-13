@@ -21,8 +21,8 @@ class Livre {
     static constraints = {
         typeDocument nullable: true
         nombreExemplaires min : 0
-        nombreExemplairesDisponibles min : 0
-    }
+        nombreExemplairesDisponibles min : 0, validator: { val, obj -> obj.nombreExemplairesDisponibles <= obj.nombreExemplaires}
+        }
 
     def void retirerUnExemplaireDisponible(){
         if(nombreExemplairesDisponibles > 0){

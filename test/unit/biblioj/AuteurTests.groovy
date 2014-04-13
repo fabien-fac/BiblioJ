@@ -23,4 +23,11 @@ class AuteurTests {
                 prenom: "Stephen")
         assert auteurValide.validate()
     }
+
+    void testToString() {
+        def auteur = new Auteur(
+                nom: "King",
+                prenom: "Stephen")
+        assertEquals("King Stephen", auteur.toString())
+    }
 }
