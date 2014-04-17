@@ -21,7 +21,6 @@ class Reservation {
     }
 
     def boolean isContainsLivre(Long id){
-        boolean res = false
 
         for(livre in livres){
             if(livre.id == id){
@@ -29,11 +28,10 @@ class Reservation {
             }
         }
 
-        return res
+        return false
     }
 
     def boolean supprimerReservation(Long id){
-        boolean res = false
 
         for(livre in livres){
             if(livre.id == id){
@@ -42,7 +40,7 @@ class Reservation {
             }
         }
 
-        return res
+        return false
     }
 
 }

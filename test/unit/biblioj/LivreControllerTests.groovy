@@ -4,6 +4,8 @@ package biblioj
 import org.junit.*
 import grails.test.mixin.*
 
+import java.sql.Timestamp
+
 @TestFor(LivreController)
 @Mock(Livre)
 class LivreControllerTests {
@@ -33,10 +35,15 @@ class LivreControllerTests {
 
         Reservation reservation1 = new Reservation(codeReservation: "test", dateReservation: new Date().plus(1))
         mockDomain(Reservation, [reservation1])
-        def model = controller.list()
+        Reservation reservation = new Reservation()
+        reservation.save()
+        params.idReservation = reservation.id
+        def model = controller.list(5)
 
         assert model.livreInstanceList.size() == 0
         assert model.livreInstanceTotal == 0
+
+        controller.list(0)
     }
 
     void testCreate() {
@@ -101,7 +108,9 @@ class LivreControllerTests {
     }
 
     void testUpdate() {
-        controller.update()
+        Timestamp newtime = new Timestamp(new Date().getDate());
+
+        controller.update(-1, newtime)
 
         assert flash.message != null
         assert response.redirectedUrl == '/livre/list'
@@ -117,7 +126,7 @@ class LivreControllerTests {
         params.id = livre.id
         //TODO: add invalid values to params object
         populateInvalidParams(params)
-        controller.update()
+        controller.update(livre.id, newtime)
 
         assert view == "/livre/edit"
         assert model.livreInstance != null
@@ -125,7 +134,7 @@ class LivreControllerTests {
         livre.clearErrors()
 
         populateValidParams(params)
-        controller.update()
+        controller.update(livre.id, newtime)
 
         assert response.redirectedUrl == "/livre/show/$livre.id"
         assert flash.message != null
@@ -137,7 +146,7 @@ class LivreControllerTests {
         populateValidParams(params)
         params.id = livre.id
         params.version = -1
-        controller.update()
+        controller.update(livre.id, new Timestamp(new Date().getDate()-24))
 
         assert view == "/livre/edit"
         assert model.livreInstance != null

@@ -2,7 +2,7 @@ package biblioj
 
 import org.springframework.dao.DataIntegrityViolationException
 
-import java.security.Timestamp
+import java.sql.Timestamp
 
 class TypeDocumentController {
 

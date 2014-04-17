@@ -5,6 +5,8 @@ package biblioj
 import org.junit.*
 import grails.test.mixin.*
 
+import java.sql.Timestamp
+
 @TestFor(TypeDocumentController)
 @Mock(TypeDocument)
 class TypeDocumentControllerTests {
@@ -29,6 +31,7 @@ class TypeDocumentControllerTests {
     void testList() {
         Reservation reservation1 = new Reservation(codeReservation: "test", dateReservation: new Date().plus(1))
         mockDomain(Reservation, [reservation1])
+        controller.list(0)
         def model = controller.list()
 
         assert model.typeDocumentInstanceList.size() == 0
@@ -96,7 +99,10 @@ class TypeDocumentControllerTests {
     }
 
     void testUpdate() {
-        controller.update()
+
+        Timestamp newtime = new Timestamp(new Date().getDate());
+
+        controller.update(-1, newtime)
 
         assert flash.message != null
         assert response.redirectedUrl == '/typeDocument/list'
@@ -112,7 +118,7 @@ class TypeDocumentControllerTests {
         params.id = typeDocument.id
         //TODO: add invalid values to params object
         populateInvalidParams(params)
-        controller.update()
+        controller.update(typeDocument.id, newtime)
 
         assert view == "/typeDocument/edit"
         assert model.typeDocumentInstance != null
@@ -120,7 +126,7 @@ class TypeDocumentControllerTests {
         typeDocument.clearErrors()
 
         populateValidParams(params)
-        controller.update()
+        controller.update(typeDocument.id, newtime)
 
         assert response.redirectedUrl == "/typeDocument/show/$typeDocument.id"
         assert flash.message != null
@@ -132,7 +138,7 @@ class TypeDocumentControllerTests {
         populateValidParams(params)
         params.id = typeDocument.id
         params.version = -1
-        controller.update()
+        controller.update(typeDocument.id, new Timestamp(new Date().getDate()-24))
 
         assert view == "/typeDocument/edit"
         assert model.typeDocumentInstance != null

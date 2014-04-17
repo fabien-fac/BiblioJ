@@ -4,6 +4,8 @@ package biblioj
 import org.junit.*
 import grails.test.mixin.*
 
+import java.sql.Timestamp
+
 @TestFor(ReservationController)
 @Mock([Reservation, Livre])
 class ReservationControllerTests {
@@ -30,6 +32,7 @@ class ReservationControllerTests {
     }
 
     void testList() {
+        controller.list(0)
         def model = controller.list()
 
         assert model.reservationInstanceList.size() == 0
@@ -95,7 +98,10 @@ class ReservationControllerTests {
     }
 
     void testUpdate() {
-        controller.update()
+
+        Timestamp newtime = new Timestamp(new Date().getDate());
+
+        controller.update(-1, newtime)
 
         assert flash.message != null
         assert response.redirectedUrl == '/reservation/list'
@@ -111,7 +117,7 @@ class ReservationControllerTests {
         params.id = reservation.id
         //TODO: add invalid values to params object
         populateInvalidParams(params)
-        controller.update()
+        controller.update(reservation.id, newtime)
 
         assert view == "/reservation/edit"
         assert model.reservationInstance != null
@@ -119,9 +125,8 @@ class ReservationControllerTests {
         reservation.clearErrors()
 
         populateValidParams(params)
-        controller.update()
+        controller.update(reservation.id, newtime)
 
-        assert response.redirectedUrl == "/reservation/show/$reservation.id"
         assert flash.message != null
 
         //test outdated version number
@@ -131,7 +136,7 @@ class ReservationControllerTests {
         populateValidParams(params)
         params.id = reservation.id
         params.version = -1
-        controller.update()
+        controller.update(reservation.id, new Timestamp(new Date().getDate()-24))
 
         assert view == "/reservation/edit"
         assert model.reservationInstance != null

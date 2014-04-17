@@ -45,6 +45,21 @@ class ReservationTests {
         assertFalse(reservation.isContainsLivre(id))
     }
 
+    void testReservationContainsIdLivre2(){
+        def reservation = new Reservation(codeReservation: "code1",
+                dateReservation: new Date().plus(1))
+        long id = "1".toLong();
+
+        def livre = new Livre(
+                nombreExemplaires: 4,
+                nombreExemplairesDisponibles: 4)
+        livre.setId(id)
+
+        reservation.livres.add(livre)
+
+        assertFalse(reservation.isContainsLivre(2))
+    }
+
     void testSupprimerReservation(){
         def reservation = new Reservation(codeReservation: "code1",
                 dateReservation: new Date().plus(1))
@@ -57,6 +72,20 @@ class ReservationTests {
 
         reservation.livres.add(livre)
         assertTrue(reservation.supprimerReservation(livre.getId()))
+    }
+
+    void testSupprimerReservation2(){
+        def reservation = new Reservation(codeReservation: "code1",
+                dateReservation: new Date().plus(1))
+        long id = "1".toLong();
+
+        def livre = new Livre(
+                nombreExemplaires: 4,
+                nombreExemplairesDisponibles: 4)
+        livre.setId(id)
+
+        reservation.livres.add(livre)
+        assertFalse(reservation.supprimerReservation(2))
     }
 
     void testSupprimerReservationInexistante(){

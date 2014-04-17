@@ -4,6 +4,8 @@ package biblioj
 import org.junit.*
 import grails.test.mixin.*
 
+import java.sql.Timestamp
+
 @TestFor(AuteurController)
 @Mock(Auteur)
 class AuteurControllerTests {
@@ -30,6 +32,7 @@ class AuteurControllerTests {
     void testList() {
         Reservation reservation1 = new Reservation(codeReservation: "test", dateReservation: new Date().plus(1))
         mockDomain(Reservation, [reservation1])
+        controller.list(0)
         def model = controller.list()
 
         assert model.auteurInstanceList.size() == 0
@@ -97,7 +100,9 @@ class AuteurControllerTests {
     }
 
     void testUpdate() {
-        controller.update()
+        Timestamp newtime = new Timestamp(new Date().getDate());
+
+        controller.update(-1, newtime)
 
         assert flash.message != null
         assert response.redirectedUrl == '/auteur/list'
@@ -114,7 +119,7 @@ class AuteurControllerTests {
         //TODO: add invalid values to params object
         populateInvalidParams(params)
 
-        controller.update()
+        controller.update(auteur.id, newtime)
 
         assert view == "/auteur/edit"
         assert model.auteurInstance != null
@@ -122,7 +127,7 @@ class AuteurControllerTests {
         auteur.clearErrors()
 
         populateValidParams(params)
-        controller.update()
+        controller.update(auteur.id, newtime)
 
         assert response.redirectedUrl == "/auteur/show/$auteur.id"
         assert flash.message != null
@@ -134,7 +139,7 @@ class AuteurControllerTests {
         populateValidParams(params)
         params.id = auteur.id
         params.version = -1
-        controller.update()
+        controller.update(auteur.id, new Timestamp(new Date().getDate()-24))
 
         assert view == "/auteur/edit"
         assert model.auteurInstance != null
