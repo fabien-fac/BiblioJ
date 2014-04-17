@@ -21,8 +21,8 @@
             <form>
                 <fieldset>
                     <legend>Recherche</legend>
-                    Type de document :
-                    <select name="type">
+                    <label for="select-type">Type de document : </label>
+                    <select name="type" id="select-type">
                     <option value=""> </option>
                         <g:each in="${biblioj.TypeDocument.list()}" status="x" var="typeDocument">
                             <g:if test="${params.type == typeDocument.intitule}">
@@ -33,9 +33,9 @@
                             </g:else>
                         </g:each>
                     </select>
-
-                    Titre du livre : <input type="text" name="titre" value="${params.titre}">
-                    Auteur : <input type="text" name="auteur" value="${params.auteur}">
+                    <br />
+                    <label for="titre">Titre du livre : </label><input id="titre" type="text" name="titre" value="${params.titre}"><br>
+                    <label for="auteur">Auteur : </label><input id="auteur" type="text" name="auteur" value="${params.auteur}"><br>
                     <input type="submit" value="Rechercher">
                 </fieldset>
             </form>

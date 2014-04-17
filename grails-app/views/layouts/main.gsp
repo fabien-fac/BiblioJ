@@ -21,11 +21,11 @@
 <style type="text/css" media="screen">
 #status {
     background-color: #eee;
-    border: .2em solid #fff;
-    margin-left : -19.7em;
+    border: .1em solid #fff;
+    margin-left : -32%;
     margin-top : 5em;
-    padding: 1em;
-    width: 17em;
+    padding: 0.5em;
+    width: 22%;
     float: left;
     -moz-box-shadow: 0px 0px 1.25em #ccc;
     -webkit-box-shadow: 0px 0px 1.25em #ccc;

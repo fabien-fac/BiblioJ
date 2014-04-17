@@ -1,5 +1,7 @@
 package biblioj
 
+import java.sql.Timestamp
+
 class Auteur {
 
     def String nom
@@ -8,6 +10,7 @@ class Auteur {
     static hasMany = [oeuvres:Livre]
 
     static fetchMode = [oeuvres: 'eager']
+    Timestamp version
 
     static constraints = {
         nom nullable : false, blank : false

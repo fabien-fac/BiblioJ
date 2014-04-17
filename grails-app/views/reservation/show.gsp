@@ -55,14 +55,16 @@
 				</g:if>
 			
 			</ol>
-            <g:if test="${nbLivreDispo > 0}">
-                <g:form controller="reservation" action="validerPanier" params='[idReservation: "${reservationInstance.id}"]'>
-                    <g:submitButton name="confirmer" value="confirmer"/>
+            <div id="form-panier">
+                <g:if test="${nbLivreDispo > 0}">
+                    <g:form controller="reservation" action="validerPanier" params='[idReservation: "${reservationInstance.id}"]'>
+                        <g:submitButton id="btn-valid" name="confirmer" value="confirmer"/>
+                    </g:form>
+                </g:if>
+                <g:form controller="livre" action="list">
+                    <g:submitButton id="btn-cancel" name="annuler" value="annuler"/>
                 </g:form>
-            </g:if>
-            <g:form controller="livre" action="list">
-                <g:submitButton name="annuler" value="annuler"/>
-            </g:form>
+            </div>
 		</div>
 	</body>
 </html>

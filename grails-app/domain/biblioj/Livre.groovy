@@ -1,4 +1,5 @@
 package biblioj
+import java.sql.Timestamp
 
 class Livre {
 
@@ -15,6 +16,8 @@ class Livre {
 
     static fetchMode = [auteurs: 'eager',
                         reservations: 'eager']
+
+    Timestamp version
 
     static belongsTo = [Reservation, Auteur]
 
