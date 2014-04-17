@@ -17,11 +17,11 @@ class ReservationController {
         [reservationInstanceList: Reservation.list(params), reservationInstanceTotal: Reservation.count()]
     }
 
-    def main() {
+    /*def main() {
         Reservation reservation = Reservation.get(session.getAttribute("idReservation"))
         [reservationInstance:reservation]
 
-    }
+    }*/
 
     def create() {
         [reservationInstance: new Reservation(params)]
@@ -117,7 +117,6 @@ class ReservationController {
     }
 
     def ajoutLivre(Long idReservation, Long idLivre){
-
         def reservationInstance = Reservation.get(idReservation)
         def livreInstance = Livre.get(idLivre)
         reservationInstance.addToLivres(livreInstance).save()

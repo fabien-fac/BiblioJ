@@ -11,7 +11,15 @@ class AuteurControllerTests {
     def populateValidParams(params) {
         assert params != null
         // TODO: Populate valid properties like...
-        //params["name"] = 'someValidName'
+        params["nom"] = 'Stephen'
+        params["prenom"] = 'King'
+    }
+
+    def populateInvalidParams(params) {
+        assert params != null
+        // TODO: Populate valid properties like...
+        params["nom"] = ''
+        params["prenom"] = 'King'
     }
 
     void testIndex() {
@@ -20,7 +28,8 @@ class AuteurControllerTests {
     }
 
     void testList() {
-
+        Reservation reservation1 = new Reservation(codeReservation: "test", dateReservation: new Date().plus(1))
+        mockDomain(Reservation, [reservation1])
         def model = controller.list()
 
         assert model.auteurInstanceList.size() == 0
@@ -50,6 +59,8 @@ class AuteurControllerTests {
     }
 
     void testShow() {
+        Reservation reservation1 = new Reservation(codeReservation: "test", dateReservation: new Date().plus(1))
+        mockDomain(Reservation, [reservation1])
         controller.show()
 
         assert flash.message != null
@@ -101,6 +112,7 @@ class AuteurControllerTests {
         // test invalid parameters in update
         params.id = auteur.id
         //TODO: add invalid values to params object
+        populateInvalidParams(params)
 
         controller.update()
 

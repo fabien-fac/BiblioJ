@@ -5,13 +5,23 @@ import org.junit.*
 import grails.test.mixin.*
 
 @TestFor(ReservationController)
-@Mock(Reservation)
+@Mock([Reservation, Livre])
 class ReservationControllerTests {
+
+    Reservation reservation1
 
     def populateValidParams(params) {
         assert params != null
         // TODO: Populate valid properties like...
-        //params["name"] = 'someValidName'
+        params["codeReservation"] = 'test2'
+        params["dateReservation"] = new Date().plus(1)
+    }
+
+    def populateInvalidParams(params) {
+        assert params != null
+        // TODO: Populate valid properties like...
+        params["codeReservation"] = 'test2'
+        params["dateReservation"] = new Date().plus(3)
     }
 
     void testIndex() {
@@ -20,7 +30,6 @@ class ReservationControllerTests {
     }
 
     void testList() {
-
         def model = controller.list()
 
         assert model.reservationInstanceList.size() == 0
@@ -101,7 +110,7 @@ class ReservationControllerTests {
         // test invalid parameters in update
         params.id = reservation.id
         //TODO: add invalid values to params object
-
+        populateInvalidParams(params)
         controller.update()
 
         assert view == "/reservation/edit"
@@ -150,5 +159,39 @@ class ReservationControllerTests {
         assert Reservation.count() == 0
         assert Reservation.get(reservation.id) == null
         assert response.redirectedUrl == '/reservation/list'
+    }
+
+    void testAjoutLivre() {
+        reservation1 = new Reservation(codeReservation: "test", dateReservation: new Date().plus(1))
+        mockDomain(Reservation, [reservation1])
+        Livre livre = new Livre(titre: "Misery", nombreExemplaires: "12", nombreExemplairesDisponibles: "10")
+        mockDomain(Livre, [livre])
+        controller.ajoutLivre(reservation1.id, livre.id)
+        assertEquals(livre, reservation1.getLivres().asList().get(0))
+    }
+
+    void testSupprimerLivre() {
+        reservation1 = new Reservation(codeReservation: "test", dateReservation: new Date().plus(1))
+        mockDomain(Reservation, [reservation1])
+        Livre livre = new Livre(titre: "Misery", nombreExemplaires: "12", nombreExemplairesDisponibles: "10")
+        mockDomain(Livre, [livre])
+        def reservationInstance = Reservation.get(reservation1.id)
+        def livreInstance = Livre.get(livre.id)
+        reservationInstance.addToLivres(livreInstance).save()
+        controller.supressionLivre(reservation1.id, livre.id)
+        assertTrue(reservation1.getLivres().isEmpty())
+    }
+
+   void testvaliderPanier() {
+       reservation1 = new Reservation(codeReservation: "test", dateReservation: new Date().plus(1))
+       mockDomain(Reservation, [reservation1])
+       Livre livre = new Livre(titre: "Misery", nombreExemplaires: "12", nombreExemplairesDisponibles: "10")
+       mockDomain(Livre, [livre])
+       def reservationInstance = Reservation.get(reservation1.id)
+       def livreInstance = Livre.get(livre.id)
+       reservationInstance.addToLivres(livreInstance).save()
+       def nbExemplaireBase = livreInstance.getNombreExemplairesDisponibles()
+       controller.validerPanier(reservation1.id)
+       assertEquals(nbExemplaireBase-1, livre.getNombreExemplairesDisponibles())
     }
 }

@@ -11,7 +11,17 @@ class LivreControllerTests {
     def populateValidParams(params) {
         assert params != null
         // TODO: Populate valid properties like...
-        //params["name"] = 'someValidName'
+        params["titre"] = 'Misery'
+        params["nombreExemplaires"] = '15'
+        params["nombreExemplairesDisponibles"] = '12'
+    }
+
+    def populateInvalidParams(params) {
+        assert params != null
+        // TODO: Populate valid properties like...
+        params["titre"] = 'Misery'
+        params["nombreExemplaires"] = '12'
+        params["nombreExemplairesDisponibles"] = '15'
     }
 
     void testIndex() {
@@ -21,6 +31,8 @@ class LivreControllerTests {
 
     void testList() {
 
+        Reservation reservation1 = new Reservation(codeReservation: "test", dateReservation: new Date().plus(1))
+        mockDomain(Reservation, [reservation1])
         def model = controller.list()
 
         assert model.livreInstanceList.size() == 0
@@ -50,6 +62,9 @@ class LivreControllerTests {
     }
 
     void testShow() {
+
+        Reservation reservation1 = new Reservation(codeReservation: "test", dateReservation: new Date().plus(1))
+        mockDomain(Reservation, [reservation1])
         controller.show()
 
         assert flash.message != null
@@ -101,7 +116,7 @@ class LivreControllerTests {
         // test invalid parameters in update
         params.id = livre.id
         //TODO: add invalid values to params object
-
+        populateInvalidParams(params)
         controller.update()
 
         assert view == "/livre/edit"
