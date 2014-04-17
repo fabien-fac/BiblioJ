@@ -39,8 +39,8 @@ html * {
 body {
 	background: #ffffff;
 	color: #333333;
-	margin: 0 auto;
-	max-width: 960px;
+	margin-left: 25%;
+	max-width: 60%;
 	overflow-x: hidden; /* prevents box-shadow causing a horizontal scrollbar in firefox when viewport < 960px wide */
 	   -moz-box-shadow: 0 0 0.3em #255b17;
 	-webkit-box-shadow: 0 0 0.3em #255b17;
@@ -596,4 +596,28 @@ th:hover, tr:hover {
 a.skip {
 	position: absolute;
 	left: -9999px;
+}
+
+#form-panier{
+    width: 96%;
+    padding: 2%;
+}
+
+#btn-valid{
+    float: left;
+}
+
+#btn-cancel{
+    float: right;
+}
+
+#list-livre label{
+    display: block;
+    width: 150px;
+    float: left;
+    margin-top: 4px;
+}
+
+#list-livre input{
+    margin-top: 4px;
 }
