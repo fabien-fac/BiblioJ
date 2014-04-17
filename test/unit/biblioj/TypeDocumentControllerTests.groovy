@@ -12,7 +12,13 @@ class TypeDocumentControllerTests {
     def populateValidParams(params) {
         assert params != null
         // TODO: Populate valid properties like...
-        //params["name"] = 'someValidName'
+        params["intitule"] = 'livre pour enfant'
+    }
+
+    def populateInvalidParams(params) {
+        assert params != null
+        // TODO: Populate valid properties like...
+        params["intitule"] = ''
     }
 
     void testIndex() {
@@ -21,7 +27,8 @@ class TypeDocumentControllerTests {
     }
 
     void testList() {
-
+        Reservation reservation1 = new Reservation(codeReservation: "test", dateReservation: new Date().plus(1))
+        mockDomain(Reservation, [reservation1])
         def model = controller.list()
 
         assert model.typeDocumentInstanceList.size() == 0
@@ -51,6 +58,8 @@ class TypeDocumentControllerTests {
     }
 
     void testShow() {
+        Reservation reservation1 = new Reservation(codeReservation: "test", dateReservation: new Date().plus(1))
+        mockDomain(Reservation, [reservation1])
         controller.show()
 
         assert flash.message != null
@@ -102,7 +111,7 @@ class TypeDocumentControllerTests {
         // test invalid parameters in update
         params.id = typeDocument.id
         //TODO: add invalid values to params object
-
+        populateInvalidParams(params)
         controller.update()
 
         assert view == "/typeDocument/edit"

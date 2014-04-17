@@ -13,14 +13,13 @@ class LivreController {
     def list(Integer max) {
 
         params.max = Math.min(max ?: 5, 100)
+        def reservation = Reservation.get(session.getAttribute("idReservation"))
 
-        Reservation reservation = Reservation.get(session.getAttribute("idReservation"))
         if(reservation == null){
             ReservationService reservationService = new ReservationService()
             reservation = reservationService.getNewReservation()
             session.setAttribute("idReservation", reservation.id)
         }
-
         LivreService livreService = new LivreService()
         livreService.serviceGetLivres(params, reservation)
 

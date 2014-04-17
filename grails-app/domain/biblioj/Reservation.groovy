@@ -1,5 +1,7 @@
 package biblioj
 
+import java.sql.Timestamp
+
 class Reservation {
 
     def String codeReservation
@@ -10,6 +12,8 @@ class Reservation {
 
 
     static fetchMode = [livres: 'eager']
+
+    Timestamp version
 
     static constraints = {
         codeReservation unique : true, nullable : false, blank : false
