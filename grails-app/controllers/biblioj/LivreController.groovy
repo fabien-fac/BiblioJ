@@ -2,6 +2,8 @@ package biblioj
 
 import org.springframework.dao.DataIntegrityViolationException
 
+import java.security.Timestamp
+
 class LivreController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -63,7 +65,7 @@ class LivreController {
         [livreInstance: livreInstance]
     }
 
-    def update(Long id, Long version) {
+    def update(Long id, Timestamp version) {
         def livreInstance = Livre.get(id)
         if (!livreInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'livre.label', default: 'Livre'), id])

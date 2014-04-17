@@ -2,6 +2,7 @@ package biblioj
 
 import org.springframework.dao.DataIntegrityViolationException
 
+import java.security.Timestamp
 import java.sql.DriverManager
 
 class ReservationController {
@@ -68,7 +69,7 @@ class ReservationController {
         [reservationInstance: reservationInstance]
     }
 
-    def update(Long id, Long version) {
+    def update(Long id, Timestamp version) {
         def reservationInstance = Reservation.get(id)
         if (!reservationInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'reservation.label', default: 'Reservation'), id])

@@ -2,6 +2,8 @@ package biblioj
 
 import org.springframework.dao.DataIntegrityViolationException
 
+import java.security.Timestamp
+
 class AuteurController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -54,7 +56,7 @@ class AuteurController {
         [auteurInstance: auteurInstance]
     }
 
-    def update(Long id, Long version) {
+    def update(Long id, Timestamp version) {
         def auteurInstance = Auteur.get(id)
         if (!auteurInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'auteur.label', default: 'Auteur'), id])

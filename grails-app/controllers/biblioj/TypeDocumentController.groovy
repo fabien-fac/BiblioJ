@@ -2,6 +2,8 @@ package biblioj
 
 import org.springframework.dao.DataIntegrityViolationException
 
+import java.security.Timestamp
+
 class TypeDocumentController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -52,7 +54,7 @@ class TypeDocumentController {
         [typeDocumentInstance: typeDocumentInstance]
     }
 
-    def update(Long id, Long version) {
+    def update(Long id, Timestamp version) {
         def typeDocumentInstance = TypeDocument.get(id)
         if (!typeDocumentInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'typeDocument.label', default: 'TypeDocument'), id])
@@ -63,8 +65,8 @@ class TypeDocumentController {
         if (version != null) {
             if (typeDocumentInstance.version > version) {
                 typeDocumentInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                        [message(code: 'typeDocument.label', default: 'TypeDocument')] as Object[],
-                        "Another user has updated this TypeDocument while you were editing")
+                          [message(code: 'typeDocument.label', default: 'TypeDocument')] as Object[],
+                          "Another user has updated this TypeDocument while you were editing")
                 render(view: "edit", model: [typeDocumentInstance: typeDocumentInstance])
                 return
             }
