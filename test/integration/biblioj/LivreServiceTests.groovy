@@ -45,7 +45,7 @@ class LivreServiceTests {
     void testServiceGetLivresNomPrenom() {
         def params = [auteur: "n"]
         reservation = new Reservation(codeReservation: "test1", dateReservation: new Date().plus(1))
-        assertEquals(8, livreService.serviceGetLivres(params, reservation).livreInstanceTotal)
+        assertEquals(7, livreService.serviceGetLivres(params, reservation).livreInstanceTotal)
     }
 
     @Test
