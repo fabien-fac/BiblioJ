@@ -21,26 +21,44 @@ class LivreServiceTests {
     }
 
     @Test
-    void testServiceGetLivres() {
+    void testServiceGetLivresTitre() {
         def params = [titre: "hun"]
         reservation = new Reservation(codeReservation: "test1", dateReservation: new Date().plus(1))
-        println livreService.serviceGetLivres(params, reservation)
         assertEquals(1, livreService.serviceGetLivres(params, reservation).livreInstanceTotal)
     }
 
     @Test
-    void testServiceGetLivres2() {
+    void testServiceGetLivresNom() {
         def params = [auteur: "col"]
         reservation = new Reservation(codeReservation: "test1", dateReservation: new Date().plus(1))
-        println livreService.serviceGetLivres(params, reservation)
         assertEquals(3, livreService.serviceGetLivres(params, reservation).livreInstanceTotal)
     }
 
     @Test
-    void testServiceGetLivres3() {
+    void testServiceGetLivresPrenom() {
+        def params = [auteur: "suz"]
+        reservation = new Reservation(codeReservation: "test1", dateReservation: new Date().plus(1))
+        assertEquals(3, livreService.serviceGetLivres(params, reservation).livreInstanceTotal)
+    }
+
+    @Test
+    void testServiceGetLivresNomPrenom() {
+        def params = [auteur: "n"]
+        reservation = new Reservation(codeReservation: "test1", dateReservation: new Date().plus(1))
+        assertEquals(8, livreService.serviceGetLivres(params, reservation).livreInstanceTotal)
+    }
+
+    @Test
+    void testServiceGetLivresNomPrenomAucun() {
+        def params = [auteur: "aaazzzz"]
+        reservation = new Reservation(codeReservation: "test1", dateReservation: new Date().plus(1))
+        assertEquals(0, livreService.serviceGetLivres(params, reservation).livreInstanceTotal)
+    }
+
+    @Test
+    void testServiceGetLivresType() {
         def params = [type: "Nouveauté"]
         reservation = new Reservation(codeReservation: "test1", dateReservation: new Date().plus(1))
-        println livreService.serviceGetLivres(params, reservation)
         assertEquals(6, livreService.serviceGetLivres(params, reservation).livreInstanceTotal)
     }
 
@@ -48,28 +66,29 @@ class LivreServiceTests {
     void testServiceGetLivresOffset() {
         def params = [type: "Nouveauté", offset: "5"]
         reservation = new Reservation(codeReservation: "test1", dateReservation: new Date().plus(1))
-        println livreService.serviceGetLivres(params, reservation)
         assertEquals(6, livreService.serviceGetLivres(params, reservation).livreInstanceTotal)
     }
 
-    /*@Test
-    void testServiceGetLivresTitre() {
-        def params = [tire:"Misery"]
-        Reservation reservation = new Reservation(codeReservation: "test1", dateReservation: new Date().plus(1))
-        assertEquals([], livreService.serviceGetLivres(params, reservation).livreInstanceList)
+    @Test
+    void testServiceGetLivresOrder() {
+        def params = [order: "asc"]
+        reservation = new Reservation(codeReservation: "test1", dateReservation: new Date().plus(1))
+        assertNotNull(livreService.serviceGetLivres(params, reservation))
     }
 
     @Test
-    void testServiceGetLivresTypeDoc() {
-        def params = [tire:"Misery"]
-        Reservation reservation = new Reservation(codeReservation: "test1", dateReservation: new Date().plus(1))
-        assertEquals([], livreService.serviceGetLivres(params, reservation).livreInstanceList)
+    void testServiceGetLivresSort() {
+        def params = [sort: "titre"]
+        reservation = new Reservation(codeReservation: "test1", dateReservation: new Date().plus(1))
+        assertNotNull(livreService.serviceGetLivres(params, reservation))
     }
 
     @Test
-    void testServiceGetLivresAuteur() {
-        def params = [tire:"Misery"]
-        Reservation reservation = new Reservation(codeReservation: "test1", dateReservation: new Date().plus(1))
-        assertEquals([], livreService.serviceGetLivres(params, reservation).livreInstanceList)
-    }*/
+    void testServiceGetLivresOrderSort() {
+        def params = [sort: "titre", order: "asc"]
+        reservation = new Reservation(codeReservation: "test1", dateReservation: new Date().plus(1))
+        assertNotNull(livreService.serviceGetLivres(params, reservation))
+    }
+
+
 }
