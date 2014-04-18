@@ -60,7 +60,7 @@ class BootStrap {
         livre10.typeDocument = nouveaute
 
         def Livre livre11 = new Livre(titre: "La reine dans le palais des courants d'air", nombreExemplaires: 8, nombreExemplairesDisponibles: 6)
-        livre11.addToAuteurs(murakami)
+        livre11.addToAuteurs(larsson)
         livre11.typeDocument = livreAdulte
 
 

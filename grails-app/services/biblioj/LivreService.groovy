@@ -12,7 +12,7 @@ class LivreService {
         if (!params.max) {
             params.max = 0
         }
-        println params.titre
+
         def listeTotal = getLivresAvecCriteres(params)
         [ livreInstanceList:listeTotal, livreInstanceTotal:listeTotal.totalCount, reservationInstance:reservation  ]
 
@@ -54,6 +54,10 @@ class LivreService {
                         }
                     }
                 }
+
+            if(params.sort && params.order){
+                order(params.sort, params.order)
+            }
         }
 
         return results

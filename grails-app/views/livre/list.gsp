@@ -50,13 +50,13 @@
 				<thead>
 					<tr>
 
-                        <g:sortableColumn property="titre" title="${message(code: 'livre.titre.label', default: 'Titre')}" />
+                        <g:sortableColumn property="titre" title="${message(code: 'livre.titre.label', default: 'Titre')}" params="${params}"/>
 
-                        <g:sortableColumn property="auteurs.nom" title="${message(code: 'livre.auteurs.label', default: 'Auteur(s)')}" />
+                        <th>Auteur(s)</th>
 					
-						<g:sortableColumn property="typeDocument" title="${message(code: 'livre.typeDocument.label', default: 'Type de document')}" />
+						<g:sortableColumn property="typeDocument" title="${message(code: 'livre.typeDocument.label', default: 'Type de document')}" params="${params}" />
 					
-						<g:sortableColumn property="nombreExemplairesDisponibles" title="${message(code: 'livre.nombreExemplairesDisponibles.label', default: 'Exemplaires disponibles')}" />
+						<g:sortableColumn property="nombreExemplairesDisponibles" title="${message(code: 'livre.nombreExemplairesDisponibles.label', default: 'Disponibles')}" params="${params}" />
 
                        <th> </th>
 					</tr>
@@ -83,7 +83,7 @@
 					
 						<td>${fieldValue(bean: livreInstance.typeDocument, field: "intitule")}</td>
 					
-						<td>${fieldValue(bean: livreInstance, field: "nombreExemplairesDisponibles")}</td>
+						<td class="td-center">${fieldValue(bean: livreInstance, field: "nombreExemplairesDisponibles")}</td>
 
                         <td>
                             <g:if test="${livreInstance.nombreExemplairesDisponibles > 0 && !reservationInstance.isContainsLivre(livreInstance.id)}">

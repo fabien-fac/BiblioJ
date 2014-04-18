@@ -621,3 +621,7 @@ a.skip {
 #list-livre input{
     margin-top: 4px;
 }
+
+.td-center{
+    text-align: center;
+}
