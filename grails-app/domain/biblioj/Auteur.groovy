@@ -9,7 +9,6 @@ class Auteur {
 
     static hasMany = [oeuvres:Livre]
 
-    static fetchMode = [oeuvres: 'eager']
     Timestamp version
 
     static constraints = {
