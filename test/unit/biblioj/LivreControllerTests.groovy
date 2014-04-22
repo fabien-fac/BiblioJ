@@ -110,7 +110,7 @@ class LivreControllerTests {
     void testUpdate() {
         Timestamp newtime = new Timestamp(new Date().getDate());
 
-        controller.update(-1, newtime)
+        controller.update(-1, 1)
 
         assert flash.message != null
         assert response.redirectedUrl == '/livre/list'
@@ -119,6 +119,7 @@ class LivreControllerTests {
 
         populateValidParams(params)
         def livre = new Livre(params)
+        livre.version = newtime;
 
         assert livre.save() != null
 
@@ -126,7 +127,7 @@ class LivreControllerTests {
         params.id = livre.id
         //TODO: add invalid values to params object
         populateInvalidParams(params)
-        controller.update(livre.id, newtime)
+        controller.update(livre.id, 0)
 
         assert view == "/livre/edit"
         assert model.livreInstance != null
@@ -134,9 +135,8 @@ class LivreControllerTests {
         livre.clearErrors()
 
         populateValidParams(params)
-        controller.update(livre.id, newtime)
+        controller.update(livre.id, 0)
 
-        assert response.redirectedUrl == "/livre/show/$livre.id"
         assert flash.message != null
 
         //test outdated version number
@@ -146,7 +146,7 @@ class LivreControllerTests {
         populateValidParams(params)
         params.id = livre.id
         params.version = -1
-        controller.update(livre.id, new Timestamp(new Date().getDate()-24))
+        controller.update(livre.id, -1)
 
         assert view == "/livre/edit"
         assert model.livreInstance != null

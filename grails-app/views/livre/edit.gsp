@@ -1,4 +1,6 @@
-<%@ page import="biblioj.Livre" %>
+<%@ page import="biblioj.Livre"%>
+<%@ page import="java.sql.Timestamp"%>
+
 <!DOCTYPE html>
 <html>
 	<head>

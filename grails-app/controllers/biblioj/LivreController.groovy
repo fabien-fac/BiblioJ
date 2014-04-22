@@ -65,8 +65,10 @@ class LivreController {
         [livreInstance: livreInstance]
     }
 
-    def update(Long id, Timestamp version) {
+    def update(Long id, Long version) {
+
         def livreInstance = Livre.get(id)
+
         if (!livreInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'livre.label', default: 'Livre'), id])
             redirect(action: "list")
@@ -74,7 +76,7 @@ class LivreController {
         }
 
         if (version != null) {
-            if (livreInstance.version > version) {
+            if (livreInstance.version.getTime() > version) {
                 livreInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
                           [message(code: 'livre.label', default: 'Livre')] as Object[],
                           "Another user has updated this Livre while you were editing")
@@ -82,6 +84,7 @@ class LivreController {
                 return
             }
         }
+
 
         livreInstance.properties = params
 
